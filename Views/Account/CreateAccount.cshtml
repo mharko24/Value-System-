@@ -1,0 +1,164 @@
+﻿@model UserApp
+@{
+    
+    Layout = null;
+    ViewData["Title"] = "Create Account";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+@*    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">*@
+</head>
+
+
+<body>
+    <br />
+   <div class="container">
+       <div>
+           <a class="btn btn-primary btn-sm" asp-controller="SiteInstruction" asp-action="Index">Home</a>
+       </div>
+        <div class="mx-auto col-10 col-md-8 col-lg-6 mt-3">
+            <h5 class="alert-danger"> @ViewBag.register</h5>
+            <form asp-action="Register" asp-controller="Account" method="post" enctype="multipart/form-data" autocomplete="off">
+                <div class="col-10 border border-light">
+                    <h4>Registration</h4>
+                    <div class="form-outline mb-3">
+                        <label asp-for="Username" class="form-label">Username</label>
+                        <input asp-for="Username" type="text" name="Username" class="form-control" placeholder="Username" />
+                        <span asp-validation-for="Username"></span>
+                    </div>
+                    <div class="form-outline mb-3">
+                        <label asp-for="Email" class="form-label">Email</label>
+                        <input asp-for="Email" type="email" name="Email" class="form-control" placeholder="Email" />
+                        <span asp-validation-for="Email"></span>
+                    </div>
+                    <div id="dropProjectname" class="form-outline mb-3">
+                        <div>
+                            <label class="form-label">Project Name</label>
+                        </div>
+                        <div>
+                            <select asp-for="ProjId"
+                                    class="js-select2-multi" id="projectSelect" multiple="multiple"
+                                    asp-items="@(new SelectList(@ViewBag.ProjectList,"ProjId", "ProjectName"))">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-outline mb-3">
+                        <label asp-for="Department">Department</label>
+                        <select class="form-control" asp-for="Department">
+                            <option value="">--Select Department--</option>
+                            <option value="Cost">Cost Engineer </option>
+                            <option value="Office">Office Engineer</option>
+                            <option value="Superindent/Manager">Project Superindent/Manager</option>
+                            <option value="Mamplasan">Mamplasan Precast</option>
+                            <option value="Planning">Planning Department</option>
+                            <option value="Engineering">Engineering Department </option>
+                            <option value="Audit">Audit Department </option>
+                            <option value="LYE">LYE</option>
+                            <option value="MTYE">MTYE</option>
+                            <option value="Management">Management</option>
+                        </select>
+                        <span asp-validation-for="Department" class="alert-danger"></span>
+                    </div>
+
+
+                    <!-- Password input -->
+                    <div class="form-outline">
+                        <label asp-for="Password" class="form-label">Password</label>
+                        <input id="passwordInput" asp-for="Password" type="password" name="Password" class="form-control" placeholder="Password" />
+                        <span asp-validation-for="Password"></span>
+                    </div>
+                    <div class="form-outline">
+                        <label class="form-label">Confirm Password</label>
+                        <input id="passwordInput1" asp-for="ConfirmPassword" type="password" name="ConfirmPassword" class="form-control" placeholder="Confirm Password" />
+                        <span asp-validation-for="ConfirmPassword"></span>
+                    </div>
+                    <div class="row mt-2 mb-3 text-center">
+                        <div class="col-5 offset-1 ">
+                            <input type="checkbox" id="showPassword" name="showPassword" />
+                            <label>Show Password</label>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2 mt-5" align="center">
+                        <button type="submit" class="btn btn-lg btn-primary" value="Create Account">Create Account</button>
+                    </div>
+
+
+
+                </div>
+
+            </form>
+       </div>
+        
+   </div>
+    
+  
+    
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/js/select2.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/js/select2.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/css/select2.min.css" rel="stylesheet">
+@* responsive:true,
+            theme: "bootstrap-5",
+            //width: '100%',
+            placeholder: "Select Projects",
+            search: "Select Projects",*@
+<script>
+    $(document).ready(function () {
+        $('#projectSelect').select2({
+           
+            closeOnSelect: false
+
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var contractTypeDropdown = document.getElementById("txtProjectName");
+        var pmiNumberInput = document.getElementById("dropProjectname");
+        var checkFinal = document.getElementById("checkProjectname");
+
+        var passwordInput1 = document.getElementById("passwordInput1");
+        var passwordInput = document.getElementById("passwordInput");
+        var showPasswordCheckbox = document.getElementById("showPassword");
+
+        contractTypeDropdown.style.display = "none";
+        pmiNumberInput.style.display = "block";
+
+        checkFinal.addEventListener("click", function () {
+            if (checkFinal.checked) {
+                //pmiNumberInput.setAttribute("disabled", "disabled");
+                pmiNumberInput.style.display = "none";
+                contractTypeDropdown.style.display = "block";
+            } else {
+                pmiNumberInput.removeAttribute("disabled");
+                pmiNumberInput.style.display = "block";
+                contractTypeDropdown.style.display = "none";
+            }
+        });
+
+
+        showPasswordCheckbox.addEventListener("click", function () {
+            if (showPasswordCheckbox.checked) {
+                passwordInput.type = "text";
+                passwordInput1.type = "text";
+            } else {
+                passwordInput.type = "password";
+                passwordInput1.type = "password";
+            }
+        })
+       
+
+
+    });
+</script>
+
+

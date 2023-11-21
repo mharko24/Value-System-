@@ -1,0 +1,100 @@
+﻿@model PaginatedResult<SiteInstruction>
+@{
+    ViewBag.Title = "List of Site Instruction";
+}
+
+@*<nav class="navbar navbar-inverse" id ="navbarList">
+    <div class="collapse navbar-collapse ">
+        <ul class="navList navbar-nav">
+            <li class="navactive"><a href="#">Site Instruction</a></li>
+            <li><a asp-controller="PotentialClaim" asp-action="Index">Potential Claim</a></li>
+            <li><a href="#">EOT Claim</a></li>
+            
+        </ul>
+    </div>
+</nav>*@
+
+@*<h3>@ViewBag.Title</h3>*@
+
+<div class="row">
+    <div class="col-6 mb-2">
+
+        <a class="btn btn-secondary btn-outline-light" asp-action="Create">
+            Create Instruction
+        </a>
+    </div>
+    <div class="col-6 mb-2">
+        <form asp-action="Index" method="get">
+            <div class="col-4 input-group">
+                <input type="text" name="s" class="form-control"/>
+                <button type="submit" class="btn btn-success"> Search</button>
+            </div>
+
+        </form>
+       
+    </div>
+</div>
+
+
+<table class="table table-responsive table-hover text-center">
+    <thead>
+        <tr class="table-active">
+            <th scope="col">Id</th>
+            <th scope="col">ProjectName</th>
+            <th scope="col">Date</th>
+            <th scope="col">CMPMINumber</th>
+            <th scope="col">AsecPMINumber</th>
+            <th scope="col">Remarks</th>
+            <th scope="col">Action</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.result == null)
+            {
+                <tr>
+                    <td colspan="7"> No Data</td>
+                </tr>
+            }
+        @if (Model.result != null)
+        {
+            foreach(var item in Model.result)
+            {
+                <tr>
+                    <td>@item.CMSiteId</td>
+                    <td>@item.ProjectName</td>
+                    <td>@item.Date</td>
+                    <td>@item.CMPMINumber</td>
+                    <td>@item.AsecPMINumber</td>
+                    <td>@item.Remarks</td>
+                    <td>
+                        <a class="btn btn-primary" asp-route-id="@item.CMSiteId" asp-action="Details"> Details</a>
+                        <a class="btn btn-primary" asp-route-id="@item.CMSiteId" asp-action="Delete"> Delete</a>
+                    </td>
+                </tr>
+                
+            }
+        }
+    </tbody>
+</table>
+<nav>
+    <ul class="pagination justify-content-center">
+        <li class="page-item @(Model.Page <= 10  ? "disabled" : "")">
+            <a class="page-link" asp-route-p="@(Model.Page - 10)"><< Previous</a>
+        </li>
+        <li class="page-item @(Model.Page <= 1 ? "disabled" : "")">
+            <a class="page-link"  asp-route-p="@(Model.Page - 1)">Previous</a>
+        </li>
+
+        <li class="page-item @(Model.Page == Model.TotalCount ? "active":Model.Page==0 ? "active" : "active")">
+            <span class="page-link">@Model.Page</span>
+        </li>
+
+        <li class="page-item @(Model.Page >= Model.TotalCount ? "disabled": "")">
+            <a class="page-link"  asp-route-p="@(Model.Page + 1)">Next</a>
+        </li>
+        <li class="page-item @(Model.Page +9 >= Model.TotalCount ? "disabled" : "")">
+            <a class="page-link"  asp-route-p="@(Model.Page + 10)">Next >></a>
+        </li>
+    </ul>
+</nav>

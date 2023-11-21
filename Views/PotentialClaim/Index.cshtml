@@ -1,0 +1,67 @@
+﻿@*@model IEnumerable<SiteInstruction>
+@{*@
+@{
+    ViewBag.Title = "List of Potential Claim";
+}
+
+<nav class="navbar navbar-inverse" id="navbarList">
+    <div class="collapse navbar-collapse ">
+        <ul class="navList navbar-nav">
+            <li><a asp-controller="SiteInstruction" asp-action="Index">Site Instruction</a></li>
+            <li class="navactive"><a href="#">Potential Claim</a></li>
+            <li><a href="#">EOT Claim</a></li>
+          
+        </ul>
+    </div>
+</nav>
+
+@*<h3>@ViewBag.Title</h3>*@
+<div class="mb-2">
+
+    <a class="btn btn-secondary btn-outline-light" asp-action="Create">
+        Create Claim
+    </a>
+</div>
+
+<table class="table table-responsive table-hover text-center">
+    <thead>
+        <tr class="table-active">
+            <th scope="col">Id</th>
+            <th scope="col">ProjectName</th>
+            <th scope="col">Date</th>
+            <th scope="col">CMPMINumber</th>
+            <th scope="col">AsecPMINumber</th>
+            <th scope="col">Remarks</th>
+            <th scope="col">Action</th>
+
+        </tr>
+    </thead>
+    <tbody>
+       @* @if (Model == null)
+        {
+            <tr>
+                <td colspan="7"> No Data</td>
+            </tr>
+        }
+        @if (Model != null)
+        {
+
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.CMSiteId</td>
+                    <td>@item.ProjectName</td>
+                    <td>@item.Date</td>
+                    <td>@item.CMPMINumber</td>
+                    <td>@item.AsecPMINumber</td>
+                    <td>@item.Remarks</td>
+                    <td>
+                        <a class="btn btn-primary" asp-route-id="@item.CMSiteId" asp-action="Details"> Details</a>
+                        <a class="btn btn-primary" asp-route-id="@item.CMSiteId" asp-action="Delete"> Delete</a>
+                    </td>
+                </tr>
+
+            }
+        }*@
+    </tbody>
+</table>

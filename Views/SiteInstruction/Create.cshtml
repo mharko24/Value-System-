@@ -1,0 +1,121 @@
+﻿@model SiteInstruction
+@{
+
+}
+<section>
+    <div class="card">
+        <div class="card-header">
+            <h2>Add Site Instruction</h2>
+            <a class="btn btn-primary mb-1" asp-action="Index" data-confirm="Disregard Entry?">Back to List</a>
+        </div>
+        <div class="card-body">
+            <form asp-controller="SiteInstruction" asp-action="Create" method="post" enctype="multipart/form-data" autocomplete="off">
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">
+                            <div class="col ">
+                                <div class="row mb-2">
+                                    <div class="col-4">
+                                        <label>Date:</label>
+                                        <input type="date" id="txtDate" class="form-control" id="txtDob" asp-for="Date" />
+                                        <span asp-validation-for="Date" class="alert-danger"></span>
+                                    </div>
+                                    <div class="col">
+                                        <label>Status:</label>
+                                        <select class="form-control" asp-for="Status" id="txtStatus" disabled>
+                                            @* <option value="">--Select Status--</option>*@
+                                            <option value="Open">Open</option>
+                                            <option value="For Costing">For Costing</option>
+                                            <option value="For Updating">For Updating</option>
+                                            <option value="For Reconciliation">For Reconciliation</option>
+                                            <option value="Approved">Approved</option>
+                                            <option value="Not Approved">Not Approved</option>
+                                            <option value="Closed">Closed</option>
+                                        </select>
+                                        @*<span asp-validation-for="Status" class="alert-danger"></span>*@
+                                    </div>
+                                </div>
+                                <div>
+                                    @Html.LabelFor(model=>model.ProjectName)
+
+                                    <input type="text" class="form-control" value=@TempData["ProjectName"] asp-for="ProjectName">
+                                </div>
+
+                            </div>
+
+                            <div class="col mt-2">
+                                <label>CM PMI/SI #:</label>
+                                <input type="text" class="form-control" id="txtPMI" asp-for="CMPMINumber" placeholder="CM/PMI Number">
+                                <span asp-validation-for="CMPMINumber" class="alert-danger"></span>
+                            </div>
+                            <div class="col mt-2">
+                                <label>ASEC PMI #:</label>
+                                <input type="text" class="form-control" id="txtAsec" asp-for="AsecPMINumber" placeholder="ASEC PMI Number">
+                                <span asp-validation-for="AsecPMINumber" class="alert-danger"></span>
+                            </div>
+
+                            
+                            <div class="col mt-2">
+                                <label>Remarks:</label>
+                                <textarea class="form-control" id="txtRemarks" rows="3" asp-for="Remarks"></textarea>
+                                <span asp-validation-for="Remarks" class="alert-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="custom-file col-8">
+
+                                <div class="form-group">
+                                    <label asp-for="Files">Select a file to upload:</label>
+                                    <input asp-for="Files" class="form-control" id="file" multiple onchange="GetFileSizeNameAndType()" />
+                                    @*<span asp-validation-for="Files" class="text-danger"></span>*@
+                                </div>
+                                <div id="fp"></div>
+                                <p>
+                                    <div id="divTotalSize"></div>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex flex-row-reverse bd-highlight mb-1">
+                    <div>
+                        <input type="submit" class="btn btn-primary float-right" value="Submit" data-confirm="Are you sure you want to submit this entry?" />
+                        <input type="reset" class="btn btn-default float-right" />
+                    </div>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <div>
+        <table id="tblMain" class="table table-bordered table-hover text-center">
+            <thead>
+                <tr class="table-primary">
+                    @*   <th scope="col">Sl No.</th>*@
+                    <th scope="col">Project Name</th>
+                    <th scope="col">CMPmi No</th>
+                    <th scope="col">ASEC PMI No</th>
+                    <th scope="col">Remarks</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Date</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+
+            <tfoot>
+            </tfoot>
+        </table>
+        <div class="card-footer">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination" id="pagination">
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+        
+
+
